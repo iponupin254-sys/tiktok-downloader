@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Downloader</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff0050;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    button.audio {
+      background: #00c853;
+    }
+    #hasil {
+      margin-top: 20px;
+    }
+    video {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+    .btn-group {
+      display: none;
+      margin-top: 15px;
+    }
+    .loading {
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>TikTok Downloader</h2>
+    <p>Tempel link TikTok di bawah</p>
+    <input id="link" placeholder="https://vt.tiktok.com/xxxx/">
+    <button onclick="proses()">Proses</button>
+
+    <div class="btn-group" id="btnGroup">
+      <p>Pilih format download:</p>
+      <button class="video-btn" onclick="download('mp4')">Download Video MP4</button>
+      <button class="audio" onclick="download('mp3')">Download Audio MP3</button>
+    </div>
+
+    <div id="hasil"></div>
+  </div>
+
+  <script>
+    let videoUrl = '';
+    let audioUrl = '';
+
+    async function proses() {
+      const url = document.getElementById('link').value;
+      const hasil = document.getElementById('hasil');
+      const btnGroup = document.getElementById('btnGroup');
+
+      if (!url.includes('tiktok.com')) {
+        hasil.innerHTML = '<p>Link TikTok tidak valid.</p>';
+        btnGroup.style.display = 'none';
+        return;
+      }
+
+      hasil.innerHTML = '<p class="loading">Memproses link...</p>';
+      btnGroup.style.display = 'none';
+
+      try {
+        const api = 'https://api.tiklydown.eu.org/api/download?url=' + encodeURIComponent(url);
+        const response = await fetch(api);
+        const data = await response.json();
+
+        videoUrl = data.video?.noWatermark || data.video?.watermark || data.video?.original || '';
+        audioUrl = data.music?.playUrl || data.music?.url || '';
+
+        if (videoUrl || audioUrl) {
+          hasil.innerHTML = '<p>Link berhasil diproses!</p>';
+          btnGroup.style.display = 'block';
+        } else {
+          hasil.innerHTML = '<p>Gagal ambil video/audio.</p>';
+        }
+      } catch (e) {
+        hasil.innerHTML = '<p>Terjadi kesalahan saat memproses.</p>';
+      }
+    }
+
+    function download(type) {
+      const hasil = document.getElementById('hasil');
+
+      if (type === 'mp4' && videoUrl) {
+        hasil.innerHTML = `
+          <p>Video siap diunduh!</p>
+          <video controls src="${videoUrl}"></video>
+          <br><br>
+          <a href="${videoUrl}" download target="_blank">Download MP4</a>
+        `;
+      } else if (type === 'mp3' && audioUrl) {
+        hasil.innerHTML = `
+          <p>Audio siap diunduh!</p>
+          <a href="${audioUrl}" download target="_blank">Download MP3</a>
+        `;
+      } else {
+        hasil.innerHTML = '<p>Format tidak tersedia.</p>';
+      }
+    }
+  </script>
+</body>
+</html>

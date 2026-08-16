@@ -5,80 +5,250 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TikTok Downloader</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #121212;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #0f0f1a, #1a0a2e, #0f0f1a);
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      margin: 0;
       padding: 20px;
     }
-    .box {
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 16px;
+
+    .container {
       width: 100%;
-      max-width: 500px;
+      max-width: 520px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 35px 25px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
       text-align: center;
     }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #ff0050, #00f2ea);
+      border-radius: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 20px auto;
+      box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
+    }
+
+    .logo svg {
+      width: 45px;
+      height: 45px;
+      fill: white;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      color: #b0b0c0;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .input-group svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      fill: #777;
+    }
+
     input {
       width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 12px;
+      padding: 15px 15px 15px 48px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      color: white;
       font-size: 14px;
-      box-sizing: border-box;
+      outline: none;
+      transition: 0.3s;
     }
-    button {
+
+    input::placeholder {
+      color: #888;
+    }
+
+    input:focus {
+      border-color: #ff0050;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-proses {
       width: 100%;
-      padding: 12px;
-      background: #ff0050;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff0050, #ff4d00);
       border: none;
       color: white;
       font-weight: bold;
-      border-radius: 8px;
+      border-radius: 14px;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3);
+    }
+
+    .btn-proses:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(255, 0, 80, 0.5);
+    }
+
+    .btn-proses:active {
+      transform: translateY(0);
+    }
+
+    .btn-group {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .btn-group p {
+      margin-bottom: 12px;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    .btn-download {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 14px;
+      font-size: 15px;
+      cursor: pointer;
       margin-bottom: 10px;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-    button.audio {
-      background: #00c853;
+
+    .btn-download svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
     }
+
+    .btn-video {
+      background: linear-gradient(135deg, #ff0050, #ff4d00);
+      box-shadow: 0 8px 20px rgba(255, 0, 80, 0.3);
+    }
+
+    .btn-audio {
+      background: linear-gradient(135deg, #00c853, #00e676);
+      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+    }
+
+    .loading {
+      color: #ffcc00;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
     #hasil {
       margin-top: 20px;
     }
+
     video {
       width: 100%;
-      border-radius: 12px;
-      margin-top: 12px;
-    }
-    .btn-group {
-      display: none;
+      border-radius: 16px;
       margin-top: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .loading {
-      color: #ffcc00;
+
+    .link-download {
+      display: inline-block;
+      margin-top: 15px;
+      color: #00f2ea;
+      text-decoration: none;
+      font-weight: bold;
+      background: rgba(0, 242, 234, 0.1);
+      padding: 12px 25px;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .link-download:hover {
+      background: rgba(0, 242, 234, 0.2);
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>TikTok Downloader</h2>
-    <p>Tempel link TikTok di bawah</p>
-    <input id="link" placeholder="https://vt.tiktok.com/xxxx/">
-    <button onclick="proses()">Proses</button>
+  <div class="container">
+    <div class="card">
+      <div class="logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+        </svg>
+      </div>
 
-    <div class="btn-group" id="btnGroup">
-      <p>Pilih format download:</p>
-      <button class="video-btn" onclick="download('mp4')">Download Video MP4</button>
-      <button class="audio" onclick="download('mp3')">Download Audio MP3</button>
+      <h1>TikTok Downloader</h1>
+      <p class="subtitle">Download video atau audio TikTok tanpa watermark</p>
+
+      <div class="input-group">
+        <svg viewBox="0 0 24 24">
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5z"/>
+        </svg>
+        <input id="link" placeholder="Tempel link TikTok di sini...">
+      </div>
+
+      <button class="btn-proses" onclick="proses()">Proses Link</button>
+
+      <div class="btn-group" id="btnGroup">
+        <p>Pilih format download:</p>
+        <button class="btn-download btn-video" onclick="download('mp4')">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/>
+          </svg>
+          Download Video MP4
+        </button>
+        <button class="btn-download btn-audio" onclick="download('mp3')">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
+          </svg>
+          Download Audio MP3
+        </button>
+      </div>
+
+      <div id="hasil"></div>
     </div>
-
-    <div id="hasil"></div>
   </div>
 
   <script>
@@ -91,7 +261,7 @@
       const btnGroup = document.getElementById('btnGroup');
 
       if (!url.includes('tiktok.com')) {
-        hasil.innerHTML = '<p>Link TikTok tidak valid.</p>';
+        hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Link TikTok tidak valid.</p>';
         btnGroup.style.display = 'none';
         return;
       }
@@ -100,22 +270,50 @@
       btnGroup.style.display = 'none';
 
       try {
-        const api = 'https://api.tiklydown.eu.org/api/download?url=' + encodeURIComponent(url);
-        const response = await fetch(api);
-        const data = await response.json();
+        const data = await fetchData(url);
 
-        videoUrl = data.video?.noWatermark || data.video?.watermark || data.video?.original || '';
-        audioUrl = data.music?.playUrl || data.music?.url || '';
+        videoUrl = data.video?.noWatermark || data.video?.watermark || data.video?.original || data.video?.url || data.video?.play || '';
+        audioUrl = data.music?.playUrl || data.music?.url || data.audio || '';
 
         if (videoUrl || audioUrl) {
-          hasil.innerHTML = '<p>Link berhasil diproses!</p>';
+          hasil.innerHTML = '<p style="color:#00e676; margin-top:15px;">Link berhasil diproses!</p>';
           btnGroup.style.display = 'block';
         } else {
-          hasil.innerHTML = '<p>Gagal ambil video/audio.</p>';
+          hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Gagal ambil video/audio.</p>';
         }
       } catch (e) {
-        hasil.innerHTML = '<p>Terjadi kesalahan saat memproses.</p>';
+        hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Terjadi kesalahan saat memproses.</p>';
       }
+    }
+
+    async function fetchData(url) {
+      const apis = [
+        'https://api.tiklydown.eu.org/api/download?url=',
+        'https://www.tikwm.com/api/?url=',
+        'https://api.tikmate.dev/api/download?url='
+      ];
+
+      for (const api of apis) {
+        try {
+          const response = await fetch(api + encodeURIComponent(url));
+          const data = await response.json();
+
+          if (data && (data.video || data.music || data.data || data.result)) {
+            return normalizeData(data);
+          }
+        } catch (e) {
+          console.log('API gagal, coba berikutnya...');
+        }
+      }
+
+      throw new Error('Semua API gagal');
+    }
+
+    function normalizeData(data) {
+      return {
+        video: data.video || data.data?.video || data.result?.video || {},
+        music: data.music || data.data?.music || data.result?.music || {}
+      };
     }
 
     function download(type) {
@@ -123,20 +321,20 @@
 
       if (type === 'mp4' && videoUrl) {
         hasil.innerHTML = `
-          <p>Video siap diunduh!</p>
+          <p style="color:#00e676; margin-bottom:10px;">Video siap diunduh!</p>
           <video controls src="${videoUrl}"></video>
-          <br><br>
-          <a href="${videoUrl}" download target="_blank">Download MP4</a>
+          <br>
+          <a class="link-download" href="${videoUrl}" download target="_blank">Download MP4</a>
         `;
       } else if (type === 'mp3' && audioUrl) {
         hasil.innerHTML = `
-          <p>Audio siap diunduh!</p>
-          <a href="${audioUrl}" download target="_blank">Download MP3</a>
+          <p style="color:#00e676; margin-bottom:10px;">Audio siap diunduh!</p>
+          <a class="link-download" href="${audioUrl}" download target="_blank">Download MP3</a>
         `;
       } else {
-        hasil.innerHTML = '<p>Format tidak tersedia.</p>';
+        hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Format tidak tersedia.</p>';
       }
     }
   </script>
 </body>
-</html>
+  </html>

@@ -1,726 +1,654 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TikTok Downloader - Tanpa Watermark</title>
-  <style>
-    :root {
-      --bg-primary: #0f0f1a;
-      --bg-secondary: #1a0a2e;
-      --bg-card: rgba(255, 255, 255, 0.05);
-      --border-card: rgba(255, 255, 255, 0.1);
-      --text-primary: #ffffff;
-      --text-secondary: #b0b0c0;
-      --text-muted: #888888;
-      --color-pink: #ff0050;
-      --color-orange: #ff4d00;
-      --color-green: #00c853;
-      --color-cyan: #00f2ea;
-      --color-yellow: #ffcc00;
-      --color-red: #ff4d4d;
-      --radius-card: 24px;
-      --radius-btn: 14px;
-    }
+    <!-- Meta dasar -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download video TikTok tanpa watermark dengan mudah dan cepat.">
+    <meta name="keywords" content="TikTok Downloader, Download TikTok, TikTok MP4, TikTok MP3, TikTok Tanpa Watermark">
+    <meta name="author" content="TikTok Downloader">
+    
+    <!-- Judul halaman -->
+    <title>TikTok Downloader - Download Video & Audio Tanpa Watermark</title>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <style>
+        /* ============================================
+           CSS VARIABEL
+        ============================================ */
+        :root {
+            --warna-background: #0f0f1a;
+            --warna-background-secondary: #1a0a2e;
+            --warna-card: rgba(255, 255, 255, 0.05);
+            --warna-border: rgba(255, 255, 255, 0.1);
+            --warna-text: #ffffff;
+            --warna-text-secondary: #b0b0c0;
+            --warna-text-muted: #888888;
+            --warna-pink: #ff0050;
+            --warna-orange: #ff4d00;
+            --warna-hijau: #00c853;
+            --warna-hijau-muda: #00e676;
+            --warna-cyan: #00f2ea;
+            --warna-kuning: #ffcc00;
+            --warna-merah: #ff4d4d;
+            --radius-kartu: 24px;
+            --radius-tombol: 14px;
+            --transisi-cepat: 0.3s;
+            --transisi-lambat: 0.5s;
+        }
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
-      color: var(--text-primary);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
+        /* ============================================
+           RESET DASAR
+        ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 520px;
-    }
+        /* ============================================
+           BODY DAN BACKGROUND
+        ============================================ */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, 
+                var(--warna-background), 
+                var(--warna-background-secondary), 
+                var(--warna-background));
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            color: var(--warna-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-    .card {
-      background: var(--bg-card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-card);
-      border-radius: var(--radius-card);
-      padding: 35px 25px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      text-align: center;
-    }
+        /* Animasi background */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-    .logo {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--color-pink), var(--color-cyan));
-      border-radius: 22px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 20px auto;
-      box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
-      animation: pulse 2s infinite;
-    }
+        /* ============================================
+           CONTAINER UTAMA
+        ============================================ */
+        .container {
+            width: 100%;
+            max-width: 520px;
+        }
 
-    @keyframes pulse {
-      0% {
-        box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
-      }
-      50% {
-        box-shadow: 0 10px 40px rgba(0, 242, 234, 0.5);
-      }
-      100% {
-        box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
-      }
-    }
+        /* ============================================
+           KARTU UTAMA
+        ============================================ */
+        .card {
+            background: var(--warna-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--warna-border);
+            border-radius: var(--radius-kartu);
+            padding: 35px 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: var(--transisi-lambat);
+        }
 
-    .logo svg {
-      width: 45px;
-      height: 45px;
-      fill: white;
-    }
+        .card:hover {
+            border-color: rgba(255, 0, 80, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+        }
 
-    h1 {
-      font-size: 26px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-    }
+        /* ============================================
+           LOGO
+        ============================================ */
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--warna-pink), var(--warna-cyan));
+            border-radius: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
+            animation: pulse 2s infinite;
+            cursor: pointer;
+            transition: var(--transisi-cepat);
+        }
 
-    .subtitle {
-      color: var(--text-secondary);
-      font-size: 14px;
-      margin-bottom: 25px;
-      line-height: 1.5;
-    }
+        .logo:hover {
+            transform: scale(1.05);
+        }
 
-    .input-group {
-      position: relative;
-      margin-bottom: 15px;
-    }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(0, 242, 234, 0.5);
+            }
+            100% {
+                box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
+            }
+        }
 
-    .input-group svg {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      fill: var(--text-muted);
-      pointer-events: none;
-    }
+        .logo svg {
+            width: 45px;
+            height: 45px;
+            fill: white;
+        }
 
-    input {
-      width: 100%;
-      padding: 15px 15px 15px 48px;
-      border: 1px solid var(--border-card);
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-btn);
-      color: var(--text-primary);
-      font-size: 14px;
-      outline: none;
-      transition: 0.3s;
-    }
+        /* ============================================
+           JUDUL DAN SUBJUDUL
+        ============================================ */
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--warna-pink), var(--warna-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    input::placeholder {
-      color: var(--text-muted);
-    }
+        .subtitle {
+            color: var(--warna-text-secondary);
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
 
-    input:focus {
-      border-color: var(--color-pink);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 20px rgba(255, 0, 80, 0.2);
-    }
+        /* ============================================
+           INPUT GROUP
+        ============================================ */
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
 
-    .btn-proses {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, var(--color-pink), var(--color-orange));
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: var(--radius-btn);
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3);
-      letter-spacing: 0.3px;
-    }
+        .input-group svg {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: var(--warna-text-muted);
+            pointer-events: none;
+            transition: var(--transisi-cepat);
+        }
 
-    .btn-proses:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(255, 0, 80, 0.5);
-    }
+        input {
+            width: 100%;
+            padding: 15px 15px 15px 48px;
+            border: 1px solid var(--warna-border);
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: var(--radius-tombol);
+            color: var(--warna-text);
+            font-size: 14px;
+            outline: none;
+            transition: var(--transisi-cepat);
+        }
 
-    .btn-proses:active {
-      transform: translateY(0);
-    }
+        input::placeholder {
+            color: var(--warna-text-muted);
+        }
 
-    .btn-group {
-      display: none;
-      margin-top: 20px;
-      animation: fadeIn 0.5s ease;
-    }
+        input:focus {
+            border-color: var(--warna-pink);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 0, 80, 0.2);
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        input:focus + svg,
+        .input-group:focus-within svg {
+            fill: var(--warna-pink);
+        }
 
-    .btn-group p {
-      margin-bottom: 12px;
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
+        /* ============================================
+           TOMBOL PROSES
+        ============================================ */
+        .btn-proses {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--warna-pink), var(--warna-orange));
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: var(--radius-tombol);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transisi-cepat);
+            box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3);
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .btn-download {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: var(--radius-btn);
-      font-size: 15px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      letter-spacing: 0.3px;
-    }
+        .btn-proses:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(255, 0, 80, 0.5);
+        }
 
-    .btn-download svg {
-      width: 20px;
-      height: 20px;
-      fill: white;
-    }
+        .btn-proses:active {
+            transform: translateY(0);
+        }
 
-    .btn-video {
-      background: linear-gradient(135deg, var(--color-pink), var(--color-orange));
-      box-shadow: 0 8px 20px rgba(255, 0, 80, 0.3);
-    }
+        .btn-proses::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
 
-    .btn-audio {
-      background: linear-gradient(135deg, var(--color-green), #00e676);
-      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
-    }
+        .btn-proses:active::after {
+            width: 300px;
+            height: 300px;
+        }
 
-    .btn-download:hover {
-      transform: translateY(-2px);
-    }
+        /* ============================================
+           GRUP TOMBOL DOWNLOAD
+        ============================================ */
+        .btn-group {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
 
-    .btn-download:active {
-      transform: translateY(0);
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .loading {
-      color: var(--color-yellow);
-      margin-top: 15px;
-      font-size: 14px;
-      animation: blink 1s infinite;
-    }
+        .btn-group p {
+            margin-bottom: 12px;
+            color: var(--warna-text-secondary);
+            font-size: 14px;
+            font-weight: bold;
+        }
 
-    @keyframes blink {
-      0% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
+        .btn-download {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: var(--radius-tombol);
+            font-size: 15px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: var(--transisi-cepat);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    #hasil {
-      margin-top: 20px;
-    }
+        .btn-download svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
 
-    .success {
-      color: var(--color-green);
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
+        .btn-download:hover {
+            transform: translateY(-2px);
+        }
 
-    .error {
-      color: var(--color-red);
-      margin-top: 15px;
-      font-weight: bold;
-    }
+        .btn-download:active {
+            transform: translateY(0);
+        }
 
-    video {
-      width: 100%;
-      border-radius: 16px;
-      margin-top: 15px;
-      border: 1px solid var(--border-card);
-      background: #000;
-    }
+        .btn-video {
+            background: linear-gradient(135deg, var(--warna-pink), var(--warna-orange));
+            box-shadow: 0 8px 20px rgba(255, 0, 80, 0.3);
+        }
 
-    .link-download {
-      display: inline-block;
-      margin-top: 15px;
-      color: var(--color-cyan);
-      text-decoration: none;
-      font-weight: bold;
-      background: rgba(0, 242, 234, 0.1);
-      padding: 12px 25px;
-      border-radius: 12px;
-      transition: 0.3s;
-      border: 1px solid rgba(0, 242, 234, 0.2);
-    }
+        .btn-audio {
+            background: linear-gradient(135deg, var(--warna-hijau), var(--warna-hijau-muda));
+            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
+        }
 
-    .link-download:hover {
-      background: rgba(0, 242, 234, 0.2);
-      transform: translateY(-2px);
-    }
+        /* ============================================
+           STATUS DAN HASIL
+        ============================================ */
+        .loading {
+            color: var(--warna-kuning);
+            margin-top: 15px;
+            font-size: 14px;
+            animation: blink 1s infinite;
+        }
 
-    .footer {
-      margin-top: 25px;
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-  </style>
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #hasil {
+            margin-top: 20px;
+        }
+
+        .success {
+            color: var(--warna-hijau-muda);
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .error {
+            color: var(--warna-merah);
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ============================================
+           VIDEO PREVIEW
+        ============================================ */
+        video {
+            width: 100%;
+            border-radius: 16px;
+            margin-top: 15px;
+            border: 1px solid var(--warna-border);
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ============================================
+           LINK DOWNLOAD
+        ============================================ */
+        .link-download {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--warna-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(0, 242, 234, 0.1);
+            padding: 12px 25px;
+            border-radius: 12px;
+            transition: var(--transisi-cepat);
+            border: 1px solid rgba(0, 242, 234, 0.2);
+        }
+
+        .link-download:hover {
+            background: rgba(0, 242, 234, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 242, 234, 0.2);
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        .footer {
+            margin-top: 25px;
+            color: var(--warna-text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--warna-border);
+            padding-top: 15px;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            .btn-proses,
+            .btn-download {
+                font-size: 14px;
+                padding: 13px;
+            }
+
+            .logo {
+                width: 65px;
+                height: 65px;
+            }
+
+            .logo svg {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .card {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input {
+                font-size: 13px;
+                padding: 12px 12px 12px 42px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="logo">
-        <svg viewBox="0 0 24 24">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-        </svg>
-      </div>
+    <!-- ============================================
+         KONTEN UTAMA
+    ============================================ -->
+    <div class="container">
+        <div class="card">
+            
+            <!-- Logo TikTok -->
+            <div class="logo" title="TikTok Downloader">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+            </div>
 
-      <h1>TikTok Downloader</h1>
-      <p class="subtitle">Download video atau audio TikTok tanpa watermark</p>
+            <!-- Judul -->
+            <h1>TikTok Downloader</h1>
+            <p class="subtitle">Download video atau audio TikTok tanpa watermark dengan mudah dan cepat</p>
 
-      <div class="input-group">
-        <svg viewBox="0 0 24 24">
-          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5z"/>
-        </svg>
-        <input id="link" placeholder="Tempel link TikTok di sini...">
-      </div>
+            <!-- Input link -->
+            <div class="input-group">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5z"/>
+                </svg>
+                <input id="link" type="text" placeholder="Tempel link TikTok di sini..." autocomplete="off">
+            </div>
 
-      <button class="btn-proses" onclick="proses()">Proses Link</button>
+            <!-- Tombol proses -->
+            <button class="btn-proses" onclick="proses()">Proses Link</button>
 
-      <div class="btn-group" id="btnGroup">
-        <p>Pilih format download:</p>
-        <button class="btn-download btn-video" onclick="download('mp4')">
-          <svg viewBox="0 0 24 24">
-            <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/>
-          </svg>
-          Download Video MP4
-        </button>
-        <button class="btn-download btn-audio" onclick="download('mp3')">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
-          </svg>
-          Download Audio MP3
-        </button>
-      </div>
+            <!-- Grup tombol download -->
+            <div class="btn-group" id="btnGroup">
+                <p>Pilih format download:</p>
+                <button class="btn-download btn-video" onclick="download('mp4')">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/>
+                    </svg>
+                    Download Video MP4
+                </button>
+                <button class="btn-download btn-audio" onclick="download('mp3')">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
+                    </svg>
+                    Download Audio MP3
+                </button>
+            </div>
 
-      <div id="hasil"></div>
+            <!-- Hasil -->
+            <div id="hasil"></div>
 
-      <div class="footer">
-        &copy; 2026 TikTok Downloader
-      </div>
+            <!-- Footer -->
+            <div class="footer">
+                &copy; 2026 TikTok Downloader • Dibuat dengan ❤️
+            </div>
+
+        </div>
     </div>
-  </div>
 
-  <script>
-    let videoUrl = '';
-    let audioUrl = '';
+    <!-- ============================================
+         JAVASCRIPT
+    ============================================ -->
+    <script>
+        // Variabel global untuk menyimpan URL video dan audio
+        let videoUrl = '';
+        let audioUrl = '';
 
-    async function proses() {
-      const url = document.getElementById('link').value.trim();
-      const hasil = document.getElementById('hasil');
-      const btnGroup = document.getElementById('btnGroup');
+        /**
+         * Fungsi utama untuk memproses link TikTok
+         * Dipanggil saat tombol "Proses Link" diklik
+         */
+        async function proses() {
+            // Ambil nilai dari input
+            const url = document.getElementById('link').value.trim();
+            const hasil = document.getElementById('hasil');
+            const btnGroup = document.getElementById('btnGroup');
 
-      if (!url) {
-        hasil.innerHTML = '<p class="error">Masukkan link TikTok terlebih dahulu.</p>';
-        btnGroup.style.display = 'none';
-        return;
-      }
+            // Validasi input kosong
+            if (!url) {
+                hasil.innerHTML = '<p class="error">Masukkan link TikTok terlebih dahulu.</p>';
+                btnGroup.style.display = 'none';
+                return;
+            }
 
-      if (!url.includes('tiktok.com')) {
-        hasil.innerHTML = '<p class="error">Link TikTok tidak valid.</p>';
-        btnGroup.style.display = 'none';
-        return;
-      }
+            // Validasi format link TikTok
+            if (!url.includes('tiktok.com')) {
+                hasil.innerHTML = '<p class="error">Link TikTok tidak valid.</p>';
+                btnGroup.style.display = 'none';
+                return;
+            }
 
-      hasil.innerHTML = '<p class="loading">Memproses link...</p>';
-      btnGroup.style.display = 'none';
+            // Tampilkan loading
+            hasil.innerHTML = '<p class="loading">Memproses link...</p>';
+            btnGroup.style.display = 'none';
 
-      try {
-        const data = await fetchData(url);
+            try {
+                // Panggil API untuk ambil data
+                const data = await fetchData(url);
 
-        videoUrl = data.video || '';
-        audioUrl = data.music || '';
+                // Simpan URL video dan audio
+                videoUrl = data.video || '';
+                audioUrl = data.music || '';
 
-        if (videoUrl || audioUrl) {
-          hasil.innerHTML = '<p class="success">Link berhasil diproses!</p>';
-          btnGroup.style.display = 'block';
-        } else {
-          hasil.innerHTML = '<p class="error">Gagal ambil video/audio.</p>';
+                // Cek apakah data tersedia
+                if (videoUrl || audioUrl) {
+                    hasil.innerHTML = '<p class="success">Link berhasil diproses!</p>';
+                    btnGroup.style.display = 'block';
+                } else {
+                    hasil.innerHTML = '<p class="error">Gagal ambil video/audio.</p>';
+                }
+            } catch (e) {
+                hasil.innerHTML = '<p class="error">Terjadi kesalahan saat memproses.</p>';
+            }
         }
-      } catch (e) {
-        hasil.innerHTML = '<p class="error">Terjadi kesalahan saat memproses.</p>';
-      }
-    }
 
-    async function fetchData(url) {
-      const apis = [
-        {
-          name: 'tikwm',
-          url: 'https://www.tikwm.com/api/?url=',
-          parse: (data) => ({
-            video: data.data?.play || data.data?.hdplay || data.data?.wmplay || '',
-            music: data.data?.music || ''
-          })
-        },
-        {
-          name: 'tiklydown',
-          url: 'https://api.tiklydown.eu.org/api/download?url=',
-          parse: (data) => ({
-            video: data.video?.noWatermark || data.video?.watermark || data.video?.original || '',
-            music: data.music?.playUrl || data.music?.url || ''
-          })
-        },
-        {
-          name: 'tikmate',
-          url: 'https://api.tikmate.dev/api/download?url=',
-          parse: (data) => ({
-            video: data.result?.video?.noWatermark || data.result?.video?.watermark || '',
-            music: data.result?.music?.url || ''
-          })
+        /**
+         * Fungsi untuk mengambil data dari berbagai API
+         * Mencoba beberapa API sampai berhasil
+         */
+        async function fetchData(url) {
+            // Daftar API yang akan dicoba
+            const apis = [
+                {
+                    name: 'TikWM',
+                    url: 'https://www.tikwm.com/api/?url=',
+                    parse: function(data) {
+                        return {
+                            video: data.data?.play || data.data?.hdplay || data.data?.wmplay || '',
+                            music: data.data?.music || ''
+                        };
+                    }
+                },
+                {
+                    name: 'TiklyDown',
+                    url: 'https://api.tiklydown.eu.org/api/download?url=',
+                    parse: function(data) {
+                        return {
+                            video: data.video?.noWatermark || data.video?.watermark || data.video?.original || '',
+                            music: data.music?.playUrl || data.music?.url || ''
+                        };
+                    }
+                }
+            ];
+
+            // Coba setiap API
+            for (const api of apis) {
+                try {
+                    const response = await fetch(api.url + encodeURIComponent(url));
+                    const data = await response.json();
+                    const result = api.parse(data);
+
+                    if (result.video || result.music) {
+                        console.log('Berhasil pakai API: ' + api.name);
+                        return result;
+                    }
+                } catch (e) {
+                    console.log(api.name + ' gagal, coba berikutnya...');
+                }
+            }
+
+            // Jika semua API gagal
+            throw new Error('Semua API gagal');
         }
-      ];
 
-      for (const api of apis) {
-        try {
-          const response = await fetch(api.url + encodeURIComponent(url));
-          const data = await response.json();
+        /**
+         * Fungsi untuk menampilkan hasil download
+         * @param {string} type - Tipe download ('mp4' atau 'mp3')
+         */
+        function download(type) {
+            const hasil = document.getElementById('hasil');
 
-          const result = api.parse(data);
-
-          if (result.video || result.music) {
-            return result;
-          }
-        } catch (e) {
-          console.log(api.name + ' gagal, coba berikutnya...');
+            if (type === 'mp4' && videoUrl) {
+                hasil.innerHTML = 
+                    '<p class="success">Video siap diunduh!</p>' +
+                    '<video controls src="' + videoUrl + '"></video>' +
+                    '<br>' +
+                    '<a class="link-download" href="' + videoUrl + '" download target="_blank">Download MP4</a>';
+            } else if (type === 'mp3' && audioUrl) {
+                hasil.innerHTML = 
+                    '<p class="success">Audio siap diunduh!</p>' +
+                    '<a class="link-download" href="' + audioUrl + '" download target="_blank">Download MP3</a>';
+            } else {
+                hasil.innerHTML = '<p class="error">Format tidak tersedia.</p>';
+            }
         }
-      }
-
-      throw new Error('Semua API gagal');
-    }
-
-    function download(type) {
-      const hasil = document.getElementById('hasil');
-
-      if (type === 'mp4' && videoUrl) {
-        hasil.innerHTML = `
-          <p class="success">Video siap diunduh!</p>
-          <video controls src="${videoUrl}"></video>
-          <br>
-          <a class="link-download" href="${videoUrl}" download target="_blank">Download MP4</a>
-        `;
-      } else if (type === 'mp3' && audioUrl) {
-        hasil.innerHTML = `
-          <p class="success">Audio siap diunduh!</p>
-          <a class="link-download" href="${audioUrl}" download target="_blank">Download MP3</a>
-        `;
-      } else {
-        hasil.innerHTML = '<p class="error">Format tidak tersedia.</p>';
-      }
-    }
-  </script>
+    </script>
 </body>
-</html>    .subtitle {
-      color: #b0b0c0;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
-
-    .input-group {
-      position: relative;
-      margin-bottom: 15px;
-    }
-
-    .input-group svg {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      fill: #777;
-    }
-
-    input {
-      width: 100%;
-      padding: 15px 15px 15px 48px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 14px;
-      color: white;
-      font-size: 14px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input::placeholder {
-      color: #888;
-    }
-
-    input:focus {
-      border-color: #ff0050;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-proses {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #ff0050, #ff4d00);
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 14px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(255, 0, 80, 0.3);
-    }
-
-    .btn-proses:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(255, 0, 80, 0.5);
-    }
-
-    .btn-proses:active {
-      transform: translateY(0);
-    }
-
-    .btn-group {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .btn-group p {
-      margin-bottom: 12px;
-      color: #ccc;
-      font-size: 14px;
-    }
-
-    .btn-download {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 14px;
-      font-size: 15px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn-download svg {
-      width: 20px;
-      height: 20px;
-      fill: white;
-    }
-
-    .btn-video {
-      background: linear-gradient(135deg, #ff0050, #ff4d00);
-      box-shadow: 0 8px 20px rgba(255, 0, 80, 0.3);
-    }
-
-    .btn-audio {
-      background: linear-gradient(135deg, #00c853, #00e676);
-      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
-    }
-
-    .btn-download:hover {
-      transform: translateY(-2px);
-    }
-
-    .loading {
-      color: #ffcc00;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    #hasil {
-      margin-top: 20px;
-    }
-
-    video {
-      width: 100%;
-      border-radius: 16px;
-      margin-top: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .link-download {
-      display: inline-block;
-      margin-top: 15px;
-      color: #00f2ea;
-      text-decoration: none;
-      font-weight: bold;
-      background: rgba(0, 242, 234, 0.1);
-      padding: 12px 25px;
-      border-radius: 12px;
-      transition: 0.3s;
-    }
-
-    .link-download:hover {
-      background: rgba(0, 242, 234, 0.2);
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <div class="logo">
-        <svg viewBox="0 0 24 24">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-        </svg>
-      </div>
-
-      <h1>TikTok Downloader</h1>
-      <p class="subtitle">Download video atau audio TikTok tanpa watermark</p>
-
-      <div class="input-group">
-        <svg viewBox="0 0 24 24">
-          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5z"/>
-        </svg>
-        <input id="link" placeholder="Tempel link TikTok di sini...">
-      </div>
-
-      <button class="btn-proses" onclick="proses()">Proses Link</button>
-
-      <div class="btn-group" id="btnGroup">
-        <p>Pilih format download:</p>
-        <button class="btn-download btn-video" onclick="download('mp4')">
-          <svg viewBox="0 0 24 24">
-            <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/>
-          </svg>
-          Download Video MP4
-        </button>
-        <button class="btn-download btn-audio" onclick="download('mp3')">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
-          </svg>
-          Download Audio MP3
-        </button>
-      </div>
-
-      <div id="hasil"></div>
-    </div>
-  </div>
-
-  <script>
-    let videoUrl = '';
-    let audioUrl = '';
-
-    async function proses() {
-      const url = document.getElementById('link').value;
-      const hasil = document.getElementById('hasil');
-      const btnGroup = document.getElementById('btnGroup');
-
-      if (!url.includes('tiktok.com')) {
-        hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Link TikTok tidak valid.</p>';
-        btnGroup.style.display = 'none';
-        return;
-      }
-
-      hasil.innerHTML = '<p class="loading">Memproses link...</p>';
-      btnGroup.style.display = 'none';
-
-      try {
-        const data = await fetchData(url);
-
-        videoUrl = data.video?.noWatermark || data.video?.watermark || data.video?.original || data.video?.url || data.video?.play || '';
-        audioUrl = data.music?.playUrl || data.music?.url || data.audio || '';
-
-        if (videoUrl || audioUrl) {
-          hasil.innerHTML = '<p style="color:#00e676; margin-top:15px;">Link berhasil diproses!</p>';
-          btnGroup.style.display = 'block';
-        } else {
-          hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Gagal ambil video/audio.</p>';
-        }
-      } catch (e) {
-        hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Terjadi kesalahan saat memproses.</p>';
-      }
-    }
-
-    async function fetchData(url) {
-      const apis = [
-        'https://api.tiklydown.eu.org/api/download?url=',
-        'https://www.tikwm.com/api/?url=',
-        'https://api.tikmate.dev/api/download?url='
-      ];
-
-      for (const api of apis) {
-        try {
-          const response = await fetch(api + encodeURIComponent(url));
-          const data = await response.json();
-
-          if (data && (data.video || data.music || data.data || data.result)) {
-            return normalizeData(data);
-          }
-        } catch (e) {
-          console.log('API gagal, coba berikutnya...');
-        }
-      }
-
-      throw new Error('Semua API gagal');
-    }
-
-    function normalizeData(data) {
-      return {
-        video: data.video || data.data?.video || data.result?.video || {},
-        music: data.music || data.data?.music || data.result?.music || {}
-      };
-    }
-
-    function download(type) {
-      const hasil = document.getElementById('hasil');
-
-      if (type === 'mp4' && videoUrl) {
-        hasil.innerHTML = `
-          <p style="color:#00e676; margin-bottom:10px;">Video siap diunduh!</p>
-          <video controls src="${videoUrl}"></video>
-          <br>
-          <a class="link-download" href="${videoUrl}" download target="_blank">Download MP4</a>
-        `;
-      } else if (type === 'mp3' && audioUrl) {
-        hasil.innerHTML = `
-          <p style="color:#00e676; margin-bottom:10px;">Audio siap diunduh!</p>
-          <a class="link-download" href="${audioUrl}" download target="_blank">Download MP3</a>
-        `;
-      } else {
-        hasil.innerHTML = '<p style="color:#ff4d4d; margin-top:15px;">Format tidak tersedia.</p>';
-      }
-    }
-  </script>
-</body>
-  </html>
+</html>
